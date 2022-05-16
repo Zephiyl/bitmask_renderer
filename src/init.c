@@ -226,8 +226,8 @@ init_surface(VULK_DATA_INC)
 void
 init_shaders(VULK_DATA_INC)
 {
-   load_shader(vulk_data, &vulk_data->shader_quad,    "spv/quad.vert.spv");
-   load_shader(vulk_data, &vulk_data->shader_raycast, "spv/raycast.frag.spv");
+   load_shader(vulk_data, &vulk_data->shader_quad,    ".spv/quad.vert.spv");
+   load_shader(vulk_data, &vulk_data->shader_raycast, ".spv/raycast.frag.spv");
 }
 
 void

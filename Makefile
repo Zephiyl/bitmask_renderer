@@ -19,7 +19,7 @@ SRC_DIR	= src
 BIN_DIR	= bin
 OBJ_DIR	= .obj
 MOD_DIR	= .mod
-SPV_DIR  = spv
+SPV_DIR  = .spv
 
 GC       = ./glsl.sh
 
@@ -34,24 +34,20 @@ SPV   = $(wildcard $(SPV_DIR)/*.spv)
 build: $(BIN_DIR) $(BIN_DIR)/$(TARGET)
 
 $(BIN_DIR): 
-	@mkdir -p $@
+	mkdir -p $@
 
 $(C_OBJ): $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c 
 	@mkdir -p $(@D)
 	$(CC) -c $(CCFLAGS) $< -o $@
 
-$(MOD_DIR):
-	@mkdir -p $@
-
 $(F_OBJ): $(OBJ_DIR)/%.o : $(SRC_DIR)/%.f03
+	mkdir -p $(MOD_DIR)
 	@mkdir -p $(@D)
 	$(FC) -c $(FCFLAGS) $< -o $@ -J $(MOD_DIR)
 
-$(SPV_DIR):
-	@mkdir -p $@
-
 $(BIN_DIR)/$(TARGET): $(C_OBJ) $(F_OBJ)
 	$(LINKER) $(C_OBJ) $(F_OBJ) $(LFLAGS) -o $(BIN_DIR)/$(TARGET)
+	mkdir -p $(SPV_DIR)
 	$(GC)
 
 run: build
