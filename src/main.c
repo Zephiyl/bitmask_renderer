@@ -271,20 +271,12 @@ main(void)
       vkCmdSetViewport(vulk_data.command_buffer[render_data.graph_index], 0, 1, &render_data.viewport);
       vkCmdSetScissor(vulk_data.command_buffer[render_data.graph_index], 0, 1, &render_data.scissor);
       vkCmdBindPipeline(vulk_data.command_buffer[render_data.graph_index], VK_PIPELINE_BIND_POINT_GRAPHICS, vulk_data.pipeline);
-//Push Descriptors
+
       VkDescriptorBufferInfo world_buffer_info = {0};
-      /*world_buffer_info[0].buffer = stt_world_buffer.buffer;
-      world_buffer_info[0].offset = 0;
-      world_buffer_info[0].range  = stt_world_buffer.size;*/
+
       world_buffer_info.buffer = bit_world_buffer.buffer;
       world_buffer_info.offset = 0;
       world_buffer_info.range  = bit_world_buffer.size;
-      /*world_buffer_info[2].buffer = bid_world_buffer.buffer;
-      world_buffer_info[2].offset = 0;
-      world_buffer_info[2].range  = bid_world_buffer.size;
-      world_buffer_info[3].buffer = lit_world_buffer.buffer;
-      world_buffer_info[3].offset = 0;
-      world_buffer_info[3].range  = lit_world_buffer.size;*/
 
       VkDescriptorBufferInfo cam_buffer_info = {0};
       cam_buffer_info.buffer = cam.buffer;
@@ -305,27 +297,6 @@ main(void)
       write_desc_set[1].descriptorCount = 1;
       write_desc_set[1].descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
       write_desc_set[1].pBufferInfo     = &world_buffer_info;
-
-      /*write_desc_set[2].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-      write_desc_set[2].pNext           = NULL;
-      write_desc_set[2].dstBinding      = 2;
-      write_desc_set[2].descriptorCount = 1;
-      write_desc_set[2].descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
-      write_desc_set[2].pBufferInfo     = &world_buffer_info[1];
-
-      write_desc_set[3].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-      write_desc_set[3].pNext           = NULL;
-      write_desc_set[3].dstBinding      = 3;
-      write_desc_set[3].descriptorCount = 1;
-      write_desc_set[3].descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
-      write_desc_set[3].pBufferInfo     = &world_buffer_info[2];
-
-      write_desc_set[4].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-      write_desc_set[4].pNext           = NULL;
-      write_desc_set[4].dstBinding      = 4;
-      write_desc_set[4].descriptorCount = 1;
-      write_desc_set[4].descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
-      write_desc_set[4].pBufferInfo     = &world_buffer_info[3];*/
 
       vkCmdPushDescriptorSetKHR
          (vulk_data.command_buffer[render_data.graph_index],
@@ -388,10 +359,10 @@ main(void)
       vkEndCommandBuffer(vulk_data.command_buffer[render_data.graph_index]);
 
       vkQueueSubmit(vulk_data.queue[render_data.graph_index], 1, &render_data.submit_info, VK_NULL_HANDLE);
-      //render_data.present_info.pSwapchains = &vulk_data.swapchain;
       vkQueuePresentKHR(vulk_data.queue[render_data.graph_index], &render_data.present_info);
       timer[1] = utime() - timer[0];
-      printf("frametime: %lu ms(%f fps)\n", timer[1], 1.0 / (timer[1] / 1000.0));
+      //Uncomment for frametime printing.
+      //printf("frametime: %lu ms(%f fps)\n", timer[1], 1.0 / (timer[1] / 1000.0));
    }
 
    glfwDestroyWindow(vulk_data.window);
