@@ -13,3 +13,6 @@ The ray steps in one direction at a time, incrementing a vec's member correspond
 ## Building
 
 This project has 3 dependencies: [Volk](https://github.com/zeux/volk/), Vulkan and GLFW. Volk is included within the project files, but Vulkan and GLFW must be linked from elsewhere. The provided Makefile does so automatically, but I'm unsure of if it works on Windows. Given the small dependency list and small project size it shouldn't be difficult to fix the Makefile for use on Windows. The Makefile requires a C compiler, a Fortran compiler and a GLSL to SPV translator. It uses GCC's C and Fortran compiler and glslangValidator by default.
+
+## Sample Output
+![img1](https://repository-images.githubusercontent.com/492968298/8f751224-acad-4251-9aef-a51238368e51)
