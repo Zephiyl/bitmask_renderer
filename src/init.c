@@ -265,6 +265,7 @@ init_render_pass(VULK_DATA_INC)
    
    u32 attachments_count = 2;
    VkAttachmentDescription attachments[attachments_count];
+   attachments[0].flags     = 0;
    attachments[0].format    = vulk_data->colour_format;
    attachments[0].samples   = VK_SAMPLE_COUNT_1_BIT;
    attachments[0].loadOp    = VK_ATTACHMENT_LOAD_OP_CLEAR;
@@ -273,7 +274,8 @@ init_render_pass(VULK_DATA_INC)
    attachments[0].stencilStoreOp  = VK_ATTACHMENT_STORE_OP_DONT_CARE;
    attachments[0].initialLayout   = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
    attachments[0].finalLayout     = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
-
+   
+   attachments[1].flags     = 0;
    attachments[1].format    = vulk_data->depth_format;
    attachments[1].samples   = VK_SAMPLE_COUNT_1_BIT;
    attachments[1].loadOp    = VK_ATTACHMENT_LOAD_OP_CLEAR;
@@ -388,8 +390,8 @@ init_pipeline(VULK_DATA_INC)
    pipe_info.pMultisampleState           = &multisample_info;
 
    VkPipelineDepthStencilStateCreateInfo depth_info = {0};
-   pipe_info.sType              = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
-   pipe_info.pNext              = NULL;
+   depth_info.sType              = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
+   depth_info.pNext              = NULL;
    pipe_info.pDepthStencilState = &depth_info;
 
    VkPipelineColorBlendAttachmentState blend_attach_info = {0};
